@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Synergy Solutions | Cybersecurity Incident Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Light Slate, Dark Slate, Subtle Blue) -->
+    <!-- Application Structure Plan: A single-page interactive dashboard with sections for Overview, Impact Analysis, Our Response, Attack Timeline, and Resources. This structure transforms the linear press release into an exploratory experience, using data from other reports to create interactive charts and timelines. The goal is to allow users (e.g., stakeholders, media) to either get a quick overview or dive deep into specific aspects of the incident, enhancing understanding and trust. -->
+    <!-- Visualization & Content Choices: Data from the 'Data Compromise' report is visualized using Chart.js donut and bar charts (Goal: Compare/Inform). The response process is shown as a clickable step-by-step diagram using HTML/CSS/JS (Goal: Organize/Inform). The attack path is a visual timeline (Goal: Change/Organize). This approach uses interactivity to explain complex information more effectively than static text. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #2563eb; /* blue-600 */
+        }
+        .active-nav {
+            color: #2563eb; /* blue-600 */
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-slate-900">GSS Incident Report</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Overview</a>
+                        <a href="#impact" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Impact</a>
+                        <a href="#response" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Our Response</a>
+                        <a href="#timeline" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Attack Timeline</a>
+                        <a href="#resources" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700">Resources</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+        <!-- Section 1: Overview -->
+        <section id="overview" class="mb-24">
+            <h1 class="text-4xl font-bold text-slate-900 mb-2 text-center">Operation Data Fortress: An Overview</h1>
+            <p class="text-center text-lg text-slate-600 mb-12 max-w-3xl mx-auto">Global Synergy Solutions has identified and is actively managing a cybersecurity incident. This report provides transparent details on the event, our response, and our commitment to security.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3">Who is GSS?</h3>
+                    <p class="text-slate-600">Global Synergy Solutions is a leading multinational corporation providing innovative services across the finance, healthcare, and education sectors, committed to excellence and security.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3">What Happened?</h3>
+                    <p class="text-slate-600">We identified a sophisticated cybersecurity incident that resulted in unauthorized access to certain sensitive data stored on our AWS cloud platform.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2 lg:col-span-1">
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3">How Did It Happen?</h3>
+                    <p class="text-slate-600">Our investigation indicates the incident originated from a targeted spear-phishing campaign, which allowed attackers to deploy malware and exfiltrate data.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Impact Analysis -->
+        <section id="impact" class="mb-24">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Impact Analysis</h2>
+            <p class="text-center text-lg text-slate-600 mb-12 max-w-3xl mx-auto">The breach led to the compromise of various data categories. We are committed to transparency regarding the scope and scale of the impact.</p>
+
+            <div class="grid lg:grid-cols-3 gap-8 items-center">
+                <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-xl font-semibold text-slate-900 mb-4 text-center">Compromised Data by Category</h3>
+                     <div class="chart-container">
+                        <canvas id="dataCategoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <p class="text-4xl font-bold text-blue-600">~257,000</p>
+                        <p class="text-slate-600 font-medium mt-2">Total Sensitive Records</p>
+                        <p class="text-sm text-slate-500 mt-1">(Employee & Customer)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <p class="text-4xl font-bold text-blue-600">~26 GB</p>
+                        <p class="text-slate-600 font-medium mt-2">Total Compromised Data</p>
+                        <p class="text-sm text-slate-500 mt-1">(Documents & Files)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+                        <h3 class="text-xl font-semibold text-slate-900 mb-4 text-center">Breakdown of Compromised PII Records</h3>
+                        <div class="relative h-64 w-full max-w-xl mx-auto">
+                            <canvas id="piiBreakdownChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Our Response -->
+        <section id="response" class="mb-24">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Our Comprehensive Response</h2>
+            <p class="text-center text-lg text-slate-600 mb-12 max-w-3xl mx-auto">Upon detection, GSS immediately activated its incident response protocols. Our actions are focused on containment, remediation, and strengthening our security posture.</p>
+            <div id="response-steps" class="flex flex-col md:flex-row justify-center items-start gap-4">
+                <!-- Response steps will be injected here by JS -->
+            </div>
+            <div id="response-details" class="mt-8 bg-white p-8 rounded-lg shadow-inner min-h-[150px]">
+                <!-- Details for selected step will be shown here -->
+                 <p class="text-center text-slate-500">Click on a step above to see more details.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Attack Timeline -->
+        <section id="timeline" class="mb-24">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Reconstructed Attack Timeline</h2>
+            <p class="text-center text-lg text-slate-600 mb-12 max-w-3xl mx-auto">Our investigation has reconstructed the key phases of the attack, providing insight into the adversary's methods.</p>
+            <div class="relative border-l-2 border-blue-200 ml-6">
+                <!-- Timeline items will be injected by JS -->
+            </div>
+        </section>
+
+        <!-- Section 5: Resources & Contact -->
+        <section id="resources">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Official Statement & Resources</h2>
+            <p class="text-center text-lg text-slate-600 mb-12 max-w-3xl mx-auto">We are committed to transparency and providing support to all affected parties.</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-slate-900 mb-4">A Message from Our Leadership</h3>
+                    <blockquote class="border-l-4 border-blue-500 pl-4 italic text-slate-700">
+                        <p>"The security and trust of our customers and partners are GSS's highest priorities. We deeply regret any concern this incident may cause. We are working around the clock to address this matter with the utmost urgency and transparency, and we are committed to providing verified updates as our investigation progresses."</p>
+                        <footer class="mt-4">
+                            <span class="font-semibold text-slate-800">Jane Doe</span><br>
+                            <span class="text-slate-600">Chief Communications Officer, Global Synergy Solutions</span>
+                        </footer>
+                    </blockquote>
+                </div>
+                <div class="bg-blue-50 p-8 rounded-lg border border-blue-200">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-4">Resources & Contact</h3>
+                    <p class="text-slate-700 mb-4">For ongoing updates and answers to frequently asked questions, please visit our dedicated security response hub:</p>
+                    <a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">GSS Security Update Hub</a>
+                    <div class="mt-6 border-t border-blue-200 pt-4">
+                        <h4 class="font-semibold text-blue-800">Media Inquiries:</h4>
+                        <p class="text-slate-700">John Smith<br>Public Relations Manager<br>media.relations@gss.com<br>(555) 123-4567</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Data for the application
+        const appData = {
+            impact: {
+                dataCategories: {
+                    labels: ['PII', 'Financial Data', 'Proprietary Data', 'Operational Data'],
+                    data: [162000, 95000, 8, 3], // Using record count for PII/Financial, GB for others. This is for visual proportion.
+                    records: {
+                        pii_employee: 42000,
+                        pii_customer: 120000,
+                        financial_payment: 95000
+                    },
+                    gbs: {
+                        financial_docs: 15,
+                        proprietary: 8,
+                        operational: 3
+                    }
+                }
+            },
+            responseSteps: [
+                {
+                    id: 'detection',
+                    title: 'Detection & Mobilization',
+                    icon: '🔍',
+                    details: 'Upon detection of unusual activity through our advanced monitoring systems, GSS immediately activated its comprehensive incident response protocols. A dedicated team of internal experts, supported by leading third-party cybersecurity forensic specialists, was mobilized to investigate and manage the event.'
+                },
+                {
+                    id: 'containment',
+                    title: 'Containment',
+                    icon: '🛡️',
+                    details: 'Immediate steps were taken to contain the incident and prevent further unauthorized activity. This involved isolating affected systems, blocking malicious network traffic, and revoking compromised credentials to mitigate further risk and limit the impact on our infrastructure.'
+                },
+                {
+                    id: 'remediation',
+                    title: 'Remediation & Hardening',
+                    icon: '🔧',
+                    details: 'A thorough remediation process has been initiated. This includes strengthening Identity and Access Management (IAM) policies, enhancing and enforcing Multi-Factor Authentication (MFA) protocols, and fortifying our logging and monitoring capabilities within the AWS environment to prevent recurrence.'
+                },
+                {
+                    id: 'communication',
+                    title: 'Communication & Cooperation',
+                    icon: '📢',
+                    details: 'We are committed to transparency and are fully cooperating with relevant law enforcement and regulatory authorities. We are directly notifying any individuals whose data is confirmed to have been affected, in accordance with applicable laws and regulations, and providing support resources.'
+                }
+            ],
+            attackTimeline: [
+                {
+                    phase: 'Phase 1: Initial Compromise',
+                    description: 'Attackers launched a sophisticated spear-phishing campaign targeting GSS employees to gain an initial foothold.'
+                },
+                {
+                    phase: 'Phase 2: Privilege Elevation',
+                    description: 'Using the initial access, adversaries exploited vulnerabilities to elevate their privileges within the network.'
+                },
+                {
+                    phase: 'Phase 3: Data Access',
+                    description: 'With elevated privileges, attackers leveraged misconfigured IAM policies to access sensitive data stores in our AWS environment.'
+                },
+                {
+                    phase: 'Phase 4: Data Exfiltration',
+                    description: 'A custom stealth tool was used to exfiltrate data, mimicking legitimate network traffic to evade initial detection.'
+                }
+            ]
+        };
+
+        // --- Chart.js Implementations ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data Category Donut Chart
+            const dataCategoryCtx = document.getElementById('dataCategoryChart').getContext('2d');
+            new Chart(dataCategoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: appData.impact.dataCategories.labels,
+                    datasets: [{
+                        label: 'Compromised Data Categories',
+                        data: [
+                            appData.impact.dataCategories.records.pii_employee + appData.impact.dataCategories.records.pii_customer,
+                            appData.impact.dataCategories.records.financial_payment,
+                            appData.impact.dataCategories.gbs.proprietary * 1000, // weight for visual
+                            appData.impact.dataCategories.gbs.operational * 1000 // weight for visual
+                        ],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)', // blue-500
+                            'rgba(239, 68, 68, 0.8)',  // red-500
+                            'rgba(249, 115, 22, 0.8)', // orange-500
+                            'rgba(16, 185, 129, 0.8)'  // emerald-500
+                        ],
+                        borderColor: '#f8fafc',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label === 'PII') return ` PII: ${appData.impact.dataCategories.records.pii_employee + appData.impact.dataCategories.records.pii_customer} records`;
+                                    if (label === 'Financial Data') return ` Financial: ${appData.impact.dataCategories.records.financial_payment} payment records & ${appData.impact.dataCategories.gbs.financial_docs} GB docs`;
+                                    if (label === 'Proprietary Data') return ` Proprietary: ${appData.impact.dataCategories.gbs.proprietary} GB`;
+                                    if (label === 'Operational Data') return ` Operational: ${appData.impact.dataCategories.gbs.operational} GB`;
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // PII Breakdown Bar Chart
+            const piiBreakdownCtx = document.getElementById('piiBreakdownChart').getContext('2d');
+            new Chart(piiBreakdownCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Employee Records', 'Customer Records'],
+                    datasets: [{
+                        label: 'Number of Compromised PII Records',
+                        data: [appData.impact.dataCategories.records.pii_employee, appData.impact.dataCategories.records.pii_customer],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(239, 68, 68, 0.7)',
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(239, 68, 68, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                     plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000) {
+                                        return (value / 1000) + 'k';
+                                    }
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- Interactive Elements ---
+            const responseStepsContainer = document.getElementById('response-steps');
+            const responseDetailsContainer = document.getElementById('response-details');
+            
+            appData.responseSteps.forEach((step, index) => {
+                const stepEl = document.createElement('button');
+                stepEl.className = 'response-step text-center p-4 border-2 border-transparent rounded-lg cursor-pointer transition-all w-full md:w-56';
+                stepEl.dataset.stepId = step.id;
+                stepEl.innerHTML = `
+                    <div class="text-4xl mb-2">${step.icon}</div>
+                    <h4 class="font-semibold text-slate-800">${step.title}</h4>
+                `;
+                responseStepsContainer.appendChild(stepEl);
+
+                stepEl.addEventListener('click', () => {
+                    document.querySelectorAll('.response-step').forEach(el => el.classList.remove('bg-white', 'shadow-lg', 'border-blue-500'));
+                    stepEl.classList.add('bg-white', 'shadow-lg', 'border-blue-500');
+                    responseDetailsContainer.innerHTML = `<h3 class="font-bold text-xl mb-3 text-slate-900">${step.title}</h3><p class="text-slate-700">${step.details}</p>`;
+                });
+            });
+
+            const attackTimelineContainer = document.querySelector('#timeline .relative');
+            appData.attackTimeline.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'mb-8';
+                itemEl.innerHTML = `
+                    <div class="flex items-center mb-1">
+                        <div class="bg-blue-500 rounded-full h-6 w-6 flex items-center justify-center ring-4 ring-white z-10">
+                            <svg class="text-white h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="ml-4 font-semibold text-lg text-slate-900">${item.phase}</div>
+                    </div>
+                    <div class="ml-12 pl-1">
+                        <p class="text-slate-600">${item.description}</p>
+                    </div>
+                `;
+                attackTimelineContainer.appendChild(itemEl);
+            });
+            
+            // --- Navigation Active State ---
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active-nav', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+    </script>
+</body>
+</html>
